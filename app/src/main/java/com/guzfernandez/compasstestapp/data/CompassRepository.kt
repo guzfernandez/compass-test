@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class CompassRepository @Inject constructor(
     private val api: WebContentService,
-    private val quoteDao: WebContentDao
+    private val webContentDao: WebContentDao
 ) {
 
     suspend fun getWebContentFromApi(): Any? {
@@ -15,15 +15,15 @@ class CompassRepository @Inject constructor(
     }
 
     suspend fun getWebContentFromDatabase() : String {
-        val response: List<WebContentEntity> = quoteDao.getAllQuotes()
+        val response: List<WebContentEntity> = webContentDao.getAllWebContent()
         return response.firstOrNull()?.response.toString()
     }
 
     suspend fun insertWebContent(webContent: List<WebContentEntity>) {
-        quoteDao.insertAll(webContent)
+        webContentDao.insertAll(webContent)
     }
 
     suspend fun clearQuotes(){
-        quoteDao.deleteAllQuotes()
+        webContentDao.deleteAllWebContent()
     }
 }

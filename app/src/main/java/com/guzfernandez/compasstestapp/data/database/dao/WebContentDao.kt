@@ -10,11 +10,11 @@ import com.guzfernandez.compasstestapp.data.database.entities.WebContentEntity
 interface WebContentDao {
 
     @Query("SELECT * FROM compass_table")
-    suspend fun getAllQuotes() : List<WebContentEntity>
+    suspend fun getAllWebContent() : List<WebContentEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(quotes : List<WebContentEntity>)
+    suspend fun insertAll(webContent : List<WebContentEntity>)
 
     @Query("DELETE FROM compass_table")
-    suspend fun deleteAllQuotes()
+    suspend fun deleteAllWebContent()
 }
