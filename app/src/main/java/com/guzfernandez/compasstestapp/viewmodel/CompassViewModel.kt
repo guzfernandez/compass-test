@@ -2,12 +2,12 @@ package com.guzfernandez.compasstestapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.guzfernandez.compasstestapp.domain.GetWebContentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,17 +19,16 @@ class CompassViewModel @Inject constructor(
     var wordCountList = MutableLiveData<Map<String, Int>>()
 
     fun getWebContentFromCompass() {
-        runBlocking {
-            runRequestsInParallel()
-        }
+        runRequestsInParallel()
     }
 
-    private suspend fun runRequestsInParallel() = coroutineScope {
-        awaitAll(async {
-            Every10thCharacterRequest()
-        }, async {
-            WordCounterRequest()
-        })
+    private fun runRequestsInParallel()  {
+        viewModelScope.launch {
+             awaitAll(
+                async { Every10thCharacterRequest() },
+                async { WordCounterRequest() }
+            )
+        }
     }
 
     private suspend fun Every10thCharacterRequest() {

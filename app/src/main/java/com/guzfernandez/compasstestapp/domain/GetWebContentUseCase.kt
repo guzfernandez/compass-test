@@ -4,7 +4,9 @@ import com.guzfernandez.compasstestapp.data.CompassRepository
 import com.guzfernandez.compasstestapp.data.database.entities.WebContentEntity
 import javax.inject.Inject
 
-class GetWebContentUseCase @Inject constructor(private val repository: CompassRepository) {
+class GetWebContentUseCase @Inject constructor(
+    private val repository: CompassRepository
+) {
 
     suspend operator fun invoke(): Any {
         val response = repository.getWebContentFromApi()

@@ -4,7 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class WebContentService @Inject constructor(private val api: WebContentApiClient) {
+class WebContentService @Inject constructor(
+    private val api: WebContentApiClient
+) {
 
     suspend fun getWebContent(): Any? {
         return withContext(Dispatchers.IO) {
